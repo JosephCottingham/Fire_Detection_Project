@@ -29,8 +29,8 @@ class ImagePredictor:
     def predict_from_array(self, arr) -> Dict[str, float]:
         """Returns a prediction value the sample belongs to each class."""
         # in this model, 'Normal Images' is the positive class (labeled by 1)
-        pred_arr = self.model.predict(arr[np.newaxis, ...]).ravel()
-        pred = tf.keras.activations.sigmoid(pred_arr).numpy().tolist()
+        pred_arr = self.model.predict(arr[np.newaxis, ...])
+        pred = tf.keras.activations.sigmoid(pred_arr).numpy().ravel().ravel()
         # so we convert the probability to predict for 'Fire_Images'
         return {
             class_label: (1 - prob) for class_label, prob in zip(self.targets, pred)
